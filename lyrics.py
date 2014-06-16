@@ -9,6 +9,7 @@
 
 from __future__ import print_function
 import sys
+import argparse
 
 def main(filename):
 	try:
@@ -32,10 +33,17 @@ def main(filename):
 				print ("\n")
 	except IOError: # Print an error if the file doesn't exist.
 		print(filename + " could not be found! Aborting...")
+		return False
+	return True
 	
 	
 if __name__ == "__main__":
+	parser = argparse.ArgumentParser(description='Converts formatted lyrics text file to show how it might look like on an iOS7 phone.')
+	parser.print_help()
 	if len(sys.argv) == 1 or len(sys.argv) > 2: # Make sure only one txt file is being checked
 		print ("Format is 'python lyrics.py <filename>'") 
 	else:
 		main(sys.argv[1])
+		if main(sys.argv[1]) is True:
+			print("------------------------------")
+			print("Lyrics successfully converted.")
