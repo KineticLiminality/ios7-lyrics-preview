@@ -1,2 +1,3 @@
-# Just .pyc for now
 *.pyc
+*.txt
+*~
