@@ -11,9 +11,17 @@ from __future__ import print_function
 import sys
 import argparse
 
+def check_if_text(filename):
+	if not filename.endswith(".txt"):
+		raise argparse.ArgumentTypeError("Only .txt files are allowed")
+		return False
+	return True
+
+
 def main(filename):
 	try:
 		with open(filename) as f: # open the file
+			print ("\n")
 			for line in f:
 				listLine = line.rstrip().split() # split line into a list
 				listLineLen = 0 # initialize variables to store line length
@@ -38,12 +46,11 @@ def main(filename):
 	
 	
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description='Converts formatted lyrics text file to show how it might look like on an iOS7 phone.')
-	parser.print_help()
+	parser = argparse.ArgumentParser(description='Converts formatted lyrics text file (.txt) to show how it might look like on an iOS7 phone.')
+	parser.add_argument("text", help="the text file containing the formatted lyrics")
+
 	if len(sys.argv) == 1 or len(sys.argv) > 2: # Make sure only one txt file is being checked
-		print ("Format is 'python lyrics.py <filename>'") 
-	else:
-		main(sys.argv[1])
-		if main(sys.argv[1]) is True:
+			parser.print_help()
+	elif check_if_text(sys.argv[1]) is True and main(sys.argv[1]) is True:
 			print("------------------------------")
 			print("Lyrics successfully converted.")
